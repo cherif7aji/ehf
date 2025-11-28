@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  ehf-analyzer:
+    build: .
+    container_name: ehf-analyzer-app
+    ports:
+      - "1000:8000"
+    volumes:
+      - ./formalites_json:/app/formalites_json
+      - ./EHFs:/app/EHFs
+    environment:
+      - PYTHONUNBUFFERED=1
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s

@@ -1,0 +1,6 @@
+PyPDF2==3.0.1
+pdfplumber==0.10.3
+pathlib2==2.3.7
+fastapi==0.122.0
+uvicorn==0.38.0
+python-multipart==0.0.20
