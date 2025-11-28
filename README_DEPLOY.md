@@ -38,17 +38,17 @@ docker compose up -d --build
 
 ```bash
 # Voir les logs
-docker-compose logs -f
+docker compose logs -f
 
 # Redémarrer
-docker-compose restart
+docker compose restart
 
 # Arrêter
-docker-compose down
+docker compose down
 
 # Mettre à jour
 git pull
-docker-compose up -d --build
+docker compose up -d --build
 ```
 
 ## 🔒 Sécurité (Optionnel)

@@ -261,7 +261,7 @@
                                 <h4>Glissez-déposez votre fichier EHF ici</h4>
                                 <p class="text-muted mb-3">ou cliquez pour sélectionner un fichier PDF</p>
                                 <input type="file" id="fileInput" name="file" accept=".pdf" class="d-none" required>
-                                <button type="button" class="ehf-btn" onclick="document.getElementById('fileInput').click()">
+                                <button type="button" class="ehf-btn" onclick="event.stopPropagation(); document.getElementById('fileInput').click()">
                                     <i class="fas fa-folder-open me-2"></i>
                                     Choisir un fichier
                                 </button>
@@ -360,8 +360,11 @@
             }
         });
 
-        uploadZone.addEventListener('click', () => {
-            fileInput.click();
+        uploadZone.addEventListener('click', (e) => {
+            // Éviter le double-clic si on clique sur le bouton
+            if (e.target.tagName !== 'BUTTON' && e.target.tagName !== 'I') {
+                fileInput.click();
+            }
         });
 
         fileInput.addEventListener('change', handleFileSelect);
