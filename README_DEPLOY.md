@@ -8,9 +8,8 @@ curl -fsSL https://get.docker.com -o get-docker.sh
 sudo sh get-docker.sh
 sudo usermod -aG docker $USER
 
-# Installer Docker Compose
-sudo curl -L "https://github.com/docker/compose/releases/download/v2.20.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-sudo chmod +x /usr/local/bin/docker-compose
+# Installer Docker Compose (Plugin)
+# Docker Compose v2 est maintenant intégré comme plugin Docker
 
 # Redémarrer la session
 logout
@@ -27,7 +26,7 @@ cd ehf-analyzer
 ./deploy.sh
 
 # OU manuellement :
-docker-compose up -d --build
+docker compose up -d --build
 ```
 
 ## 🌐 Accès
