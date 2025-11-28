@@ -412,17 +412,16 @@ def extraire_charges_actives(formalites: List[Dict]) -> Dict:
         # Détecter radiation totale ou radiation simplifiée totale (insensible à la casse)
         a_radiation_totale = bool(re.search(r'radiation\s+(totale|simplifi[eé]e\s+totale)', texte_complet, re.IGNORECASE))
         
-        # Extraire le titre principal depuis les tables (format: "TYPE PAGE X À PAGE Y")
+        # Extraire le titre principal depuis les tables (format: "TITRE PAGE X À PAGE Y")
         titre = None
         for table in formalite.get('tables', []):
             donnees = table.get('donnees', [])
             for row in donnees:
                 for cell in row:
                     if cell and isinstance(cell, str) and 'PAGE' in cell.upper() and 'À PAGE' in cell.upper():
-                        # Vérifier si c'est un titre de charge
-                        if any(mot in cell.upper() for mot in ['HYPOTHEQUE', 'PRIVILEGE', 'CHARGE', 'SERVITUDE', 'SAISIE']):
-                            titre = cell.strip()
-                            break
+                        # Extraire le titre tel qu'il est, sans filtrage
+                        titre = cell.strip()
+                        break
                 if titre:
                     break
             if titre:
@@ -432,7 +431,7 @@ def extraire_charges_actives(formalites: List[Dict]) -> Dict:
         if not titre:
             lignes = texte_complet.split('\n')
             for ligne in lignes:
-                if any(mot in ligne.upper() for mot in ['HYPOTHEQUE', 'PRIVILEGE', 'CHARGE', 'SERVITUDE', 'SAISIE']) and 'PAGE' in ligne.upper():
+                if 'PAGE' in ligne.upper() and 'À PAGE' in ligne.upper():
                     titre = ligne.strip()
                     break
         
